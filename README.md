@@ -10,7 +10,7 @@
 
 在开发环境下, 每个不同块的`style`都会被单独提取插入到页面的`head`区域, 而生产出来的的文件是会被合并成一个文件, 在开发环境下, 这些`style`块的顺序又和生产环境编译出来的css文件内的顺序有差别, 导致我们在开发环境中, 使用了相同的优先级, 覆盖原Vant的UI样式看起来正常, 而在生产后, 顺序错误导致失效了!
 
-为了更加方便测试, 我在[`vue-cli-mobile-study`](https://github.com/whidy/vue-cli-mobile-study)项目创建了一个分支`02-build-css-order`, 有兴趣可以看看~
+为了更加方便测试, 我在[vue-cli-mobile-study](https://github.com/whidy/vue-cli-mobile-study)项目创建了一个分支[`02-build-css-order`](https://github.com/whidy/vue-cli-mobile-study/tree/02-build-css-order), 有兴趣可以看看~
 
 > 本来想在不同块的css中添加注释以便于更明显的观察顺序变化, 结果发现生产环境中的注释被自动忽略了, 尝试去掉`cssnano`插件执行, 发现还是有部分注释没有展示出来, 因为不是很重要, 所以没有去纠结这块.
 
