@@ -1,76 +1,43 @@
-# vue-cli-mobile-study
+# [新手坑] 02.Vue开发环境和生产环境样式不一致的问题
 
-> a vue-cli study for mobile
+> 上次提到作用域问题, 导致样是不生效, 这次讲的是我之前遇到的一个小坑, 稍不留神就完蛋.
 
-## 项目介绍
+前阵子做的一个小项目, 引入了Vant的UI库, 外加自己写的很多样式, 在开发环境下测试完美, 直接就build出来上正式环境, 发现竟然有多处样式未生效的问题! 还好是新项目, 尚未推广, 因此除了内部同事测试发现, 没有造成恶劣影响, 不过以后还是要注意下, 开发环境看着没问题, 但是生产环境一定还是要再过一遍.
 
-该脚手架用于移动端开发学习, 目前使用的UI框架是`Vant`, 使用`PostCSS`进行css编写, 适配方案使用`VW`方案.
+那么为什么会出现这个问题呢? 我下面来做些小的测试观察一下.
 
-其他插件使用了`Vuex`, `Axios`, `moment.js`等
+## 问题现象
 
-后期还会引入更多功能, 复杂的内容慢慢增加学习深度. 因此该项目将会产生很多分支用于测试总结.
+在开发环境下, 每个不同块的`style`都会被单独提取插入到页面的`head`区域, 而生产出来的的文件是会被合并成一个文件, 在开发环境下, 这些`style`块的顺序又和生产环境编译出来的css文件内的顺序有差别, 导致我们在开发环境中, 使用了相同的优先级, 覆盖原Vant的UI样式看起来正常, 而在生产后, 顺序错误导致失效了!
 
-## 其他说明
+为了更加方便测试, 我在[`vue-cli-mobile-study`](https://github.com/whidy/vue-cli-mobile-study)项目创建了一个分支`02-build-css-order`, 有兴趣可以看看~
 
-`browserslist`使用的是默认的, 项目兼容规则以`package.json`为准
+> 本来想在不同块的css中添加注释以便于更明显的观察顺序变化, 结果发现生产环境中的注释被自动忽略了, 尝试去掉`cssnano`插件执行, 发现还是有部分注释没有展示出来, 因为不是很重要, 所以没有去纠结这块.
 
-**.babelrc**内对es6的默认配置调整了, 因为浏览器兼容我写在了`package.json`. 并添加了vant的UI(参阅Vant官方文档中提到的引入组件, [方式一](https://www.youzanyun.com/zanui/vant#/zh-CN/quickstart))
+开发环境中的`head`区域有效的`style`有5个. 分别是
 
-```javascript
-{
-  "presets": [["env", { "modules": false }]],
-  "plugins": [
-    "transform-vue-jsx",
-    "transform-runtime",
-    [
-      "import",
-      {
-        "libraryName": "vant",
-        "libraryDirectory": "es",
-        "style": true
-      }
-    ]
-  ]
-}
-```
+1. `index.html`中的css样式
+1. vant的`base.css`内容
+1. 路径为`./vue-cli-mobile-study/src/assets/styles/uireset.css`内容
+1. `App.vue`的css内容
+1. `HelloWorld.vue`的css内容
 
-**.postcssrc.js**也做了相应修改, 主要是运用相关插件对css处理, 内容有点长, 自行点击文件查看.
+而生产出来的却和这个不同, 因为被合并为1个css文件了, 因此我们观察单个css文件的上面4块的顺序
 
-修改了`./vue-cli-mobile-study/config/index.js`中的`host`为`0.0.0.0`, 方便局域网内其他设备访问.
+1. `index.html`中的css样式
+1. `App.vue`的css内容
+1. `HelloWorld.vue`的css内容
+1. vant的`base.css`内容
+1. 路径为`./vue-cli-mobile-study/src/assets/styles/uireset.css`内容
 
-个人使用VSCode进行开发, 安装有Vetur, Prettier等插件, 项目中也使用了`eslint-config-prettier`插件, 来避免冲突. 也就修改了`.eslintrc.js`一点点. 具体可以查阅[Integrating with ESLint](https://prettier.io/docs/en/eslint.html)
+当然, 其实在有作用域的组件中所包含的样式顺序对项目是没有影响的, 所以我们需要关注的是**全局引入的样式**顺序, 从上面的现象中可以看出, 除了核心文件`index.html`, **开发环境**下, Vant样式默认在最前面(Vant实际上是Babel那边导入了), 而其他样式则似乎根据`main.js`入口的顺序, 以及渲染顺序来添加到html头部的; 而`生产环境`下, 相对诡异.
 
-补充, 路由用的`history`模式.
+## 问题原因
 
-补充, 修改了`./vue-cli-mobile-study/config/index.js`中产出文件路径, 我个人倾向用`nginx`管理站点, 因此修改了这里配置. 方便在build后, 模拟正式环境的操作~
+我有在GitHub查阅过相关Issues, 也找过StackOverflow相关内容, 不过没有什么收获, 外加Webpack的高级配置方面也不是很熟悉, 因此也就没有研究出来, 如果有大神能指点一二欢迎留言.
 
-下面是vue-cli项目运行自带内容.
+## 解决方案
 
-![vue-cli快速实践](http://wx1.sinaimg.cn/large/46444bacgy1fpyj1vux8bg208c054tyf.gif)
+在需要覆盖第三方组件的默认样式是, 尽量使用高于第三方组件优先级的css样式, 以免出现开发环境和生产环境效果不同的情况. 在自己的组件样式编写中, 除了有公共的组件在不同页面的样式控制下可能需要全局样式外, 尽量写上作用域!
 
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+下次来记录一点什么坑呢, 我还没想好 - -.

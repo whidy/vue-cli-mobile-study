@@ -23,7 +23,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="postcss">
-// 这是模版内的样式
+/* style block 2 */
 .van-button {
   width: 50%;
   margin: 20px auto;
