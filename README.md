@@ -40,6 +40,8 @@
 
 个人使用VSCode进行开发, 安装有Vetur, Prettier等插件, 项目中也使用了`eslint-config-prettier`插件, 来避免冲突. 也就修改了`.eslintrc.js`一点点. 具体可以查阅[Integrating with ESLint](https://prettier.io/docs/en/eslint.html)
 
+补充, 路由用的history模式.
+
 下面是vue-cli项目运行自带内容.
 
 ## Build Setup
