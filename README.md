@@ -40,9 +40,13 @@
 
 个人使用VSCode进行开发, 安装有Vetur, Prettier等插件, 项目中也使用了`eslint-config-prettier`插件, 来避免冲突. 也就修改了`.eslintrc.js`一点点. 具体可以查阅[Integrating with ESLint](https://prettier.io/docs/en/eslint.html)
 
-补充, 路由用的history模式.
+补充, 路由用的`history`模式.
+
+补充, 修改了`./vue-cli-mobile-study/config/index.js`中产出文件路径, 我个人倾向用`nginx`管理站点, 因此修改了这里配置. 方便在build后, 模拟正式环境的操作~
 
 下面是vue-cli项目运行自带内容.
+
+![vue-cli快速实践](http://wx1.sinaimg.cn/large/46444bacgy1fpyj1vux8bg208c054tyf.gif)
 
 ## Build Setup
 
