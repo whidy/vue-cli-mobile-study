@@ -2,6 +2,46 @@
 
 > a vue-cli study for mobile
 
+## 项目介绍
+
+该脚手架用于移动端开发学习, 目前使用的UI框架是`Vant`, 使用`PostCSS`进行css编写, 适配方案使用`VW`方案.
+
+其他插件使用了`Vuex`, `Axios`, `moment.js`等
+
+后期还会引入更多功能, 复杂的内容慢慢增加学习深度. 因此该项目将会产生很多分支用于测试总结.
+
+## 其他说明
+
+`browserslist`使用的是默认的, 项目兼容规则以`package.json`为准
+
+**.babelrc**内对es6的默认配置调整了, 因为浏览器兼容我写在了`package.json`. 并添加了vant的UI(参阅Vant官方文档中提到的引入组件, [方式一](https://www.youzanyun.com/zanui/vant#/zh-CN/quickstart))
+
+```javascript
+{
+  "presets": [["env", { "modules": false }]],
+  "plugins": [
+    "transform-vue-jsx",
+    "transform-runtime",
+    [
+      "import",
+      {
+        "libraryName": "vant",
+        "libraryDirectory": "es",
+        "style": true
+      }
+    ]
+  ]
+}
+```
+
+**.postcssrc.js**也做了相应修改, 主要是运用相关插件对css处理, 内容有点长, 自行点击文件查看.
+
+修改了`./vue-cli-mobile-study/config/index.js`中的`host`为`0.0.0.0`, 方便局域网内其他设备访问.
+
+个人使用VSCode进行开发, 安装有Vetur, Prettier等插件, 项目中也使用了`eslint-config-prettier`插件, 来避免冲突. 也就修改了`.eslintrc.js`一点点. 具体可以查阅[Integrating with ESLint](https://prettier.io/docs/en/eslint.html)
+
+下面是vue-cli项目运行自带内容.
+
 ## Build Setup
 
 ``` bash
