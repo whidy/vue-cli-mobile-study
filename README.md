@@ -44,6 +44,8 @@
 
 补充, 修改了`./vue-cli-mobile-study/config/index.js`中产出文件路径, 我个人倾向用`nginx`管理站点, 因此修改了这里配置. 方便在build后, 模拟正式环境的操作~
 
+`2018年4月21日`补充, 新增`.prettierrc`配置文件确保项目代码规范统一. 前提VSCode安装有`prettier`插件, 否则另需安装prettier依赖~
+
 下面是vue-cli项目运行自带内容.
 
 ![vue-cli快速实践](http://wx1.sinaimg.cn/large/46444bacgy1fpyj1vux8bg208c054tyf.gif)
