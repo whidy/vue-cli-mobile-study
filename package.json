@@ -16,6 +16,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "moment": "^2.22.1",
+    "normalize.css": "^8.0.0",
     "postcss-scss": "^1.0.5",
     "vant": "^1.0.7",
     "vue": "^2.5.2",

@@ -4,7 +4,7 @@
 
 ## 项目介绍
 
-该脚手架用于移动端开发学习, 目前使用的UI框架是`Vant`, 使用`PostCSS`进行css编写, 适配方案使用`VW`方案.
+该脚手架用于移动端开发学习, 目前使用的UI框架是`Vant`, 使用`PostCSS`进行css编写, 因为Vant自带部分`reset`, 因此仅引入`normalize.css`进行样式统一, 如果没有用到第三方插件请自行引入`reset.css`, 适配方案使用`VW`方案.
 
 其他插件使用了`Vuex`, `Axios`, `moment.js`等
 
@@ -47,6 +47,13 @@
 下面是vue-cli项目运行自带内容.
 
 ![vue-cli快速实践](http://wx1.sinaimg.cn/large/46444bacgy1fpyj1vux8bg208c054tyf.gif)
+
+该脚手架会根据个人或可能存在的需求不断完善, 该项目也会记录相关项目使用中的一些问题.
+
+## 问题总结
+
+1. [Vue模板内引入的组件样式覆盖失效](https://segmentfault.com/a/1190000014483889)
+1. [Vue开发环境和生产环境样式不一致的问题](https://github.com/whidy/vue-cli-mobile-study/blob/02-build-css-order/README.md)
 
 ## Build Setup
 
