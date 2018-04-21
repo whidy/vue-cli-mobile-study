@@ -6,15 +6,13 @@ import App from './App'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+import '@/assets/styles/_uireset.css'
 
 const instance = axios.create({
   baseURL: '/mobile',
   timeout: 10000
 })
 Object.defineProperty(Vue.prototype, '$ajax', { value: instance })
-
-import '@/assets/styles/uireset.css'
-
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
