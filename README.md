@@ -18,7 +18,7 @@
 
 1. `index.html`中的css样式
 1. vant的`base.css`内容
-1. 路径为`./vue-cli-mobile-study/src/assets/styles/uireset.css`内容
+1. 路径为`./vue-cli-mobile-study/src/assets/styles/_uireset.css`内容
 1. `App.vue`的css内容
 1. `HelloWorld.vue`的css内容
 
@@ -28,9 +28,15 @@
 1. `App.vue`的css内容
 1. `HelloWorld.vue`的css内容
 1. vant的`base.css`内容
-1. 路径为`./vue-cli-mobile-study/src/assets/styles/uireset.css`内容
+1. 路径为`./vue-cli-mobile-study/src/assets/styles/_uireset.css`内容
 
 当然, 其实在有作用域的组件中所包含的样式顺序对项目是没有影响的, 所以我们需要关注的是**全局引入的样式**顺序, 从上面的现象中可以看出, 除了核心文件`index.html`, **开发环境**下, Vant样式默认在最前面(Vant实际上是Babel那边导入了), 而其他样式则似乎根据`main.js`入口的顺序, 以及渲染顺序来添加到html头部的; 而`生产环境`下, 相对诡异.
+
+### 2018年4月21日补充
+
+> 今天因为考虑到Vant的中部分reset样式并没有较好的对页面进行样式统一, 因此引入`normalize.css`, 于是基于上面的测试, 现在拥有**6**块`style`. 而`normalize.css`在两种环境下的区别还是有的~
+
+我将`normalize.css`直接写入`main.js`的顶部进行`import`, 发现可以很好的将`normalize.css`内的样式放在除了不可控制`index.html`内样式之后的首位. **这样就很棒棒了**, 通常我们会将`normalize.css`和`reset.css`优先加载.
 
 ## 问题原因
 
@@ -38,4 +44,6 @@
 
 ## 解决方案
 
-在需要覆盖第三方组件的默认样式是, 尽量使用高于第三方组件优先级的css样式, 以免出现开发环境和生产环境效果不同的情况. 在自己的组件样式编写中, 除了有公共的组件在不同页面的样式控制下可能需要全局样式外, 尽量写上作用域!
+在需要覆盖第三方组件的默认样式是, 尽量使用高于第三方组件优先级的css样式, 以免出现开发环境和生产环境效果不同的情况.
+
+在自己的组件样式编写中, 除了有公共的组件在不同页面的样式控制下可能需要全局样式外, 尽量写上作用域! 并且**一定不要在自己写的组件内使用全局样式**, 很容易出现顺序问题导致开发和生产结果不一致的情况!
