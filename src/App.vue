@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="app">
     <img src="./assets/logo.png">
     <router-view/>
   </div>
@@ -13,7 +13,7 @@ export default {
 
 <style lang="postcss">
 /* style block 1 */
-#app {
+.app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

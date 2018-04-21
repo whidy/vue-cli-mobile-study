@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <my-btn type="default">Vant默认按钮测试</my-btn>
+    <my-btn type="default">VantUI默认按钮组件引入测试</my-btn>
   </div>
 </template>
 

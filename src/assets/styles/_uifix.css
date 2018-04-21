@@ -1,0 +1,16 @@
+/* Vant css reset */
+
+// button
+.van-button {
+  border: 0;
+}
+
+.van-nav-bar.hide {
+  display: none;
+}
+
+.van-toast--text {
+  font-size: 30px;
+  padding: 20px 40px;
+  white-space: nowrap;
+}
