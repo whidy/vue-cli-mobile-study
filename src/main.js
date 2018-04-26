@@ -5,13 +5,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import axios from 'axios'
-
-const instance = axios.create({
-  baseURL: '/mobile',
-  timeout: 10000
-})
-Object.defineProperty(Vue.prototype, '$ajax', { value: instance })
+import './mock'
 
 Vue.config.productionTip = false
 

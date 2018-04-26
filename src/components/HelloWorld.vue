@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <my-btn type="default">VantUI默认按钮组件引入测试</my-btn>
+    <my-btn type="default">{{userName}}</my-btn>
   </div>
 </template>
 
@@ -15,8 +15,19 @@ export default {
   },
   data() {
     return {
-      msg: "Welcome to Whidy's Vue-cli study project!"
+      msg: 'Welcome to Whidy\'s Vue-cli study project!',
+      userName: ''
     }
+  },
+  created() {
+    // this.axios.get('/user').then(response => {
+    //   console.log(response.data)
+    //   this.userName = response.data.user
+    // })
+    this.$ajax('/users').then(response => {
+      console.log(response.data)
+      // this.userName = response.data.user
+    })
   }
 }
 </script>
