@@ -1,85 +1,42 @@
-# vue-cli-mobile-study
+# 基于Vue-CLI下的非跨域请求模拟数据接口的解决方案
 
-> a vue-cli study for mobile
+> 前几天一直在研究mockjs, 不记得从哪里看到这个工具[`axios-mock-adapter`](https://github.com/ctimmerm/axios-mock-adapter), 配合了`Mockjs`在`Vue-cli`下可以模拟数据接口, 也不存在跨域问题了.
 
-## 项目介绍
+## 特点
 
-该脚手架用于移动端开发学习, 目前使用的UI框架是`Vant`, 使用`PostCSS`进行css编写, 因为Vant自带部分`reset`, 因此仅引入`normalize.css`进行样式统一, 如果没有用到第三方插件请自行引入`reset.css`, 适配方案使用`VW`方案.
+* 无需额外开启一个mockjs的server
+* 不存在跨域问题
+* 能够快速实现接口更新
 
-其他插件使用了`Vuex`, `Axios`, `moment.js`等
+## 配置说明
 
-后期还会引入更多功能, 复杂的内容慢慢增加学习深度. 因此该项目将会产生很多分支用于测试总结.
+需要用到的主要组件包括
 
-## 其他说明
+* [axios](https://github.com/axios/axios)
+* [axios-mock-adapter](https://github.com/ctimmerm/axios-mock-adapter)
+* [mockjs](https://github.com/nuysoft/Mock/wiki)
 
-`browserslist`使用的是默认的, 项目兼容规则以`package.json`为准
+我在`src`下建立了一个`mock`目录, 并创建了`index.js`存放接口配置和`axios`相关配置, 其中为了测试, 我在该目录的`index.js`中写了两个接口, 接口数据有采用`mockjs`自动生成随机数据. 如果有需要的话, 自行将其模块化.
 
-**.babelrc**内对es6的默认配置调整了, 因为浏览器兼容我写在了`package.json`. 并添加了vant的UI(参阅Vant官方文档中提到的引入组件, [方式一](https://www.youzanyun.com/zanui/vant#/zh-CN/quickstart))
+接着在`main.js`引入上面写好的mock的配置. 然后我们就可以在组件使用了.
 
-```javascript
-{
-  "presets": [["env", { "modules": false }]],
-  "plugins": [
-    "transform-vue-jsx",
-    "transform-runtime",
-    [
-      "import",
-      {
-        "libraryName": "vant",
-        "libraryDirectory": "es",
-        "style": true
-      }
-    ]
-  ]
-}
-```
+该demo以`HelloWorld.vue`测试. 在`created`上请求数据. 并渲染DOM, 点击`button`可以获取随机的数据列表.
 
-**.postcssrc.js**也做了相应修改, 主要是运用相关插件对css处理, 内容有点长, 自行点击文件查看.
+## 其他
 
-修改了`./vue-cli-mobile-study/config/index.js`中的`host`为`0.0.0.0`, 方便局域网内其他设备访问.
+拉下该分支后, `npm install`完成后执行`npm run dev`查看效果
 
-个人使用VSCode进行开发, 安装有Vetur, Prettier等插件, 项目中也使用了`eslint-config-prettier`插件, 来避免冲突. 也就修改了`.eslintrc.js`一点点. 具体可以查阅[Integrating with ESLint](https://prettier.io/docs/en/eslint.html)
 
-补充, 路由用的`history`模式.
 
-补充, 修改了`./vue-cli-mobile-study/config/index.js`中产出文件路径, 我个人倾向用`nginx`管理站点, 因此修改了这里配置. 方便在build后, 模拟正式环境的操作~
 
-`2018年4月21日`补充, 新增`.prettierrc`配置文件确保项目代码规范统一. 前提VSCode安装有`prettier`插件, 否则另需安装prettier依赖~
 
-下面是vue-cli项目运行自带内容.
 
-![vue-cli快速实践](http://wx1.sinaimg.cn/large/46444bacgy1fpyj1vux8bg208c054tyf.gif)
 
-该脚手架会根据个人或可能存在的需求不断完善, 该项目也会记录相关项目使用中的一些问题.
 
-## 问题总结
 
-1. [Vue模板内引入的组件样式覆盖失效](https://segmentfault.com/a/1190000014483889)
-1. [Vue开发环境和生产环境样式不一致的问题](https://github.com/whidy/vue-cli-mobile-study/blob/02-build-css-order/README.md)
 
-## Build Setup
 
-``` bash
-# install dependencies
-npm install
 
-# serve with hot reload at localhost:8080
-npm run dev
 
-# build for production with minification
-npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+参阅: [改造vue-cli,使用mockjs搭建mock server](https://juejin.im/post/5acdb5345188255c5668caa5)
